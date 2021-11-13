@@ -8,8 +8,8 @@ import java.util.StringTokenizer;
 
 
 public @Service class ClassPackager {
-    public Package pack(List<Class> classes){
-        Package root = new Package("");
+    public @Mandatory Package pack(@Mandatory List<Class> classes){
+        Package root = new Package("", null);
         for(Class clazz : classes){
             List<String> path = getPath(clazz);
             Package targetPackage = open(path, root);
@@ -21,19 +21,19 @@ public @Service class ClassPackager {
     private @Mandatory Package open(@Mandatory List<String> path, @Mandatory Package root){
         Package currentPackage = root;
         for(String name : path){
-            currentPackage = open(name, root.getPackages());
+            currentPackage = open(name, currentPackage);
         }
         return currentPackage;
     }
 
-    private @Mandatory Package open(@Mandatory String name, @Mandatory List<Package> packages){
-        for(Package packagee : packages){
+    private @Mandatory Package open(@Mandatory String name, @Mandatory Package parent){
+        for(Package packagee : parent.getPackages()){
             if(packagee.getName().equals(name)){
                 return packagee;
             }
         }
-        packages.addLast(new Package(name));
-        return packages.getLast();
+        parent.getPackages().addLast(new Package(name, parent));
+        return parent.getPackages().getLast();
     }
 
     private @Mandatory List<String> getPath(@Mandatory Class clazz){

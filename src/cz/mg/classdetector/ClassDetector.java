@@ -10,7 +10,7 @@ import java.util.zip.ZipInputStream;
 
 
 public @Service class ClassDetector {
-    public List<String> find(InputStream stream){
+    public @Mandatory List<String> find(@Mandatory InputStream stream){
         List<String> classNames = new List<>();
         try {
             ZipInputStream zip = new ZipInputStream(stream);
@@ -29,7 +29,7 @@ public @Service class ClassDetector {
         return classNames;
     }
 
-    private @Mandatory String removeClassExtension(String classFileName){
+    private @Mandatory String removeClassExtension(@Mandatory String classFileName){
         return classFileName.substring(0, classFileName.length() - ".class".length());
     }
 }

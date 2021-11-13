@@ -9,7 +9,7 @@ public @Service class PackageBrowser {
     public @Mandatory Package open(@Mandatory List<String> path, @Mandatory Package root){
         Package currentPackage = root;
         for(String name : path){
-            currentPackage = open(name, root.getPackages());
+            currentPackage = open(name, currentPackage.getPackages());
         }
         return currentPackage;
     }
