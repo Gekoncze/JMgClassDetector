@@ -12,6 +12,7 @@ import cz.mg.collections.list.List;
 
 public @Utility class Package {
     private final @Mandatory @Value String name;
+    private final @Mandatory @Value String fullName;
     private final @Optional @Link Package parent;
     private final @Mandatory @Part List<Package> packages = new List<>();
     private final @Mandatory @Link List<Class> classes = new List<>();
@@ -19,10 +20,15 @@ public @Utility class Package {
     public Package(@Mandatory String name, @Optional Package parent) {
         this.name = name;
         this.parent = parent;
+        this.fullName = getFullName(this);
     }
 
     public @Mandatory String getName() {
         return name;
+    }
+
+    public @Mandatory String getFullName() {
+        return fullName;
     }
 
     public @Optional Package getParent() {
@@ -37,9 +43,9 @@ public @Utility class Package {
         return classes;
     }
 
-    public @Mandatory String getFullName() {
+    private static @Mandatory String getFullName(@Mandatory Package self) {
         List<String> path = new List<>();
-        Package current = this;
+        Package current = self;
         while(current != null){
             if(current.name.length() > 0){
                 path.addFirst(current.name);
