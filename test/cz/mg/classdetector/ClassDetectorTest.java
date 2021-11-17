@@ -4,8 +4,6 @@ import cz.mg.annotations.requirement.Mandatory;
 import cz.mg.annotations.requirement.Optional;
 import cz.mg.collections.list.List;
 
-import java.io.IOException;
-
 
 public class ClassDetectorTest {
     private static final String JAR_PATH = "/home/me/Desktop/Dev/Java/JMgClassDetector/out/artifacts/JMgClassDetector_jar/JMgClassDetector.jar";
