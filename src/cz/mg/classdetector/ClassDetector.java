@@ -28,7 +28,10 @@ public @Service class ClassDetector {
                     if(entry.getName().endsWith(".class")){
                         String classFileFullName = entry.getName().replace('/', '.');
                         String classFullName = removeClassExtension(classFileFullName);
-                        classes.addLast(Class.forName(classFullName));
+                        try {
+                            classes.addLast(Class.forName(classFullName));
+                        } catch (ClassNotFoundException e){
+                        }
                     }
                 }
             }

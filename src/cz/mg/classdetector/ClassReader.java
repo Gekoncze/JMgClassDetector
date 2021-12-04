@@ -21,7 +21,10 @@ public @Service class ClassReader {
             List<Class> classes = new List<>();
             String line;
             while((line = reader.readLine()) != null){
-                classes.addLast(Class.forName(line));
+                try {
+                    classes.addLast(Class.forName(line));
+                } catch (ClassNotFoundException e){
+                }
             }
             return classes;
         } catch (Exception e){
